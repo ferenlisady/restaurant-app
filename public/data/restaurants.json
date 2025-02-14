@@ -1,0 +1,156 @@
+[
+  {
+    "id": 1,
+    "name": "BBQ Bliss",
+    "location": "123 Main Street, Downtown District, City Center",
+    "image": "/images/bbq_bliss.jpg",
+    "menus": {
+      "101": {
+        "id": 101,
+        "name": "BBQ Chicken Wings",
+        "price": 250,
+        "image": "/images/bbq_chicken_wings.jpg",
+        "recommended": true
+      },
+      "102": {
+        "id": 102,
+        "name": "Grilled Salmon",
+        "price": 350,
+        "image": "/images/grilled_salmon.jpg",
+        "recommended": false
+      }
+    }
+  },
+  {
+    "id": 2,
+    "name": "Burger Heaven",
+    "location": "456 Elm Avenue, Uptown Food Court, Metropolitan Area",
+    "image": "/images/burger_heaven.jpg",
+    "menus": {
+      "201": {
+        "id": 201,
+        "name": "Cheeseburger",
+        "price": 200,
+        "image": "/images/cheeseburger.jpg",
+        "recommended": true
+      },
+      "202": {
+        "id": 202,
+        "name": "Vegan Burger",
+        "price": 220,
+        "image": "/images/vegan_burger.jpg",
+        "recommended": false
+      }
+    }
+  },
+  {
+    "id": 3,
+    "name": "Sushi Place",
+    "location": "789 Sakura Lane, Midtown Business District, City Center",
+    "image": "/images/sushi_place.jpg",
+    "menus": {
+      "301": {
+        "id": 301,
+        "name": "California Roll",
+        "price": 280,
+        "image": "/images/california_roll.jpg",
+        "recommended": true
+      },
+      "302": {
+        "id": 302,
+        "name": "Shrimp Dumplings",
+        "price": 260,
+        "image": "/images/shrimp_dumplings.jpg",
+        "recommended": false
+      }
+    }
+  },
+  {
+    "id": 4,
+    "name": "Pizza Paradise",
+    "location": "1010 Pepperoni Street, Eastside Dining Square, Food District",
+    "image": "/images/pizza_paradise.jpg",
+    "menus": {
+      "401": {
+        "id": 401,
+        "name": "Cheese Pizza",
+        "price": 300,
+        "image": "/images/pizza.jpg",
+        "recommended": true
+      },
+      "402": {
+        "id": 402,
+        "name": "Spaghetti",
+        "price": 280,
+        "image": "/images/spaghetti.jpg",
+        "recommended": false
+      }
+    }
+  },
+  {
+    "id": 5,
+    "name": "Taco Fiesta",
+    "location": "2022 Fiesta Avenue, Westside Cultural Market, Old Town",
+    "image": "/images/taco_fiesta.jpg",
+    "menus": {
+      "501": {
+        "id": 501,
+        "name": "Tacos Al Pastor",
+        "price": 240,
+        "image": "/images/tacos_al_pastor.jpg",
+        "recommended": true
+      },
+      "502": {
+        "id": 502,
+        "name": "Quesadilla",
+        "price": 230,
+        "image": "/images/quesadilla.jpg",
+        "recommended": false
+      }
+    }
+  },
+  {
+    "id": 6,
+    "name": "Pasta Palace",
+    "location": "3033 Alfredo Boulevard, Central Piazza, Little Italy",
+    "image": "/images/pasta_palace.jpg",
+    "menus": {
+      "601": {
+        "id": 601,
+        "name": "Fettuccine Alfredo",
+        "price": 320,
+        "image": "/images/fettuccine_alfredo.jpg",
+        "recommended": true
+      },
+      "602": {
+        "id": 602,
+        "name": "Penne Arrabbiata",
+        "price": 290,
+        "image": "/images/penne_arrabbiata.jpg",
+        "recommended": false
+      }
+    }
+  },
+  {
+    "id": 7,
+    "name": "Dessert Delights",
+    "location": "5055 Sweet Tooth Lane, Gourmet Dessert Plaza, Downtown",
+    "image": "/images/dessert_delights.jpg",
+    "menus": {
+      "701": {
+        "id": 701,
+        "name": "Chocolate Lava Cake",
+        "price": 200,
+        "image": "/images/chocolate_lava_cake.jpg",
+        "recommended": true
+      },
+      "702": {
+        "id": 702,
+        "name": "Strawberry Cheesecake",
+        "price": 220,
+        "image": "/images/strawberry_cheesecake.jpg",
+        "recommended": false
+      }
+    }
+  }
+]
