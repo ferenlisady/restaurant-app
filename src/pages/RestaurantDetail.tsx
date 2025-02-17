@@ -1,32 +1,23 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Container, Typography, Grid, } from "@mui/material";
 import { RestaurantType, MenuItemType } from "../types/types";
+import {useFetch} from "../hooks/useFetch"; 
 import MenuCard from "../components/MenuCard";
 
 const RestaurantDetail: React.FC = () => {
   const { id } = useParams<{ id?: string }>(); 
-  const [restaurant, setRestaurant] = useState<RestaurantType | null>(null);
+  const { data: restaurants } = useFetch<{ [key: string]: RestaurantType }>("/data/restaurants.json");
 
-  useEffect(() => {
-    if (!id) return; 
-
-    fetch("/data/restaurants.json")
-      .then(res => res.json())
-      .then((data: { [key: string]: RestaurantType }) => {
-        setRestaurant(data[id]); 
-      })
-      .catch(error => console.error("Failed to load restaurant:", error));
-  }, [id]);
-
-  if (!restaurant) {
+  if (!restaurants || !id || !restaurants[id]) {
     return <Typography>Loading...</Typography>;
   }
+
+  const restaurant = restaurants[id];
 
   return (
     <Container>
       <Typography variant="h4">{restaurant.name}</Typography>
-      <Typography variant="subtitle1" sx={{mb: 5}}>{restaurant.location}</Typography>
+      <Typography variant="subtitle1" sx={{ mb: 5 }}>{restaurant.location}</Typography>
 
       <Grid container spacing={8}>
         {Object.values(restaurant.menus).map((menuItem: MenuItemType) => (

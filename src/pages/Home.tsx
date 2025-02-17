@@ -14,7 +14,7 @@ const Home = () => {
     <Container>
       {/* Banner Section */}
       <Box sx={{ position: "relative", display: "inline-block", width: "100%" }}>
-        <CardMedia component="img" height="300" image="/images/banner.jpg" alt="banner" />
+        <CardMedia component="img" height="300" image="/images/banner.jpg" alt="banner" sx={{borderRadius: "20px"}}/>
         <Typography
           variant="h4"
           sx={{
@@ -30,7 +30,7 @@ const Home = () => {
       </Box>
 
       {/* Recommended Menus Section */}
-      <Typography variant="h5" sx={{ mt: 5, mb: 3, textAlign: "center" }}>
+      <Typography variant="h4" sx={{ my: 5, textAlign: "center" }}>
         Recommended Menus
       </Typography>
 

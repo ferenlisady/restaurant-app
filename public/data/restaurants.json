@@ -142,7 +142,7 @@
         "name": "Chocolate Lava Cake",
         "price": 200,
         "image": "/images/chocolate_lava_cake.jpg",
-        "recommended": true
+        "recommended": false
       },
       "702": {
         "id": 702,

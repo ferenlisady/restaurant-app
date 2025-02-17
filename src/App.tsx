@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Box } from "@mui/material";
 import Navbar from "./components/Navbar";
+import Footer from "./components/footer";
 import Home from "./pages/Home";
 import Menu from "./pages/Menus";
 import Restaurant from "./pages/Restaurants";
@@ -24,6 +25,7 @@ const App: React.FC = () => {
               <Route path="/restaurant/:id" element={<RestaurantDetail/>} />
             </Routes>
           </Box>
+          <Footer />
         </CartProvider>
       </CoinProvider>
     </Router>
