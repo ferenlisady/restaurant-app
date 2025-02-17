@@ -1,6 +1,6 @@
 import { Card, CardMedia, CardContent, Typography, Button, Box } from "@mui/material";
 import { MenuItemType } from "../types/types";
-import { useCart } from "../context/CartContext";
+import { useCart } from "../hooks/useCart";
 import RecommendIcon from '@mui/icons-material/Recommend';
 
 interface MenuCardProps {

@@ -1,14 +1,14 @@
 import { AppBar, Toolbar, Typography, Button, IconButton, Drawer, List, ListItem, ListItemText, Box } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link, useLocation } from "react-router-dom";
-import { useCoin } from "../context/CoinContext";
+import { useCoin } from "../hooks/useCoin";
 import { useState } from "react";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 const Navbar: React.FC = () => {
   const { coins, addCoins } = useCoin();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const location = useLocation(); // Get current route
+  const location = useLocation(); 
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -26,7 +26,7 @@ const Navbar: React.FC = () => {
       <AppBar position="static" sx={{ backgroundColor: "#fafafa" }}>
         <Toolbar sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           
-          {/* Left: Mobile Menu Button & Title */}
+          {/* Hamburger Menu & Title */}
           <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
             <IconButton
               edge="start"
@@ -41,7 +41,7 @@ const Navbar: React.FC = () => {
             </Typography>
           </Box>
 
-          {/* Center: Menu Items (Hidden on Mobile) */}
+          {/* Menu Items*/}
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }, justifyContent: "center", gap: 3 }}>
             {menuItems.map((item) => (
               <Button
@@ -62,7 +62,7 @@ const Navbar: React.FC = () => {
             ))}
           </Box>
 
-          {/* Right: Coins & Add Coins Button */}
+          {/* Coins & Add Coins Button */}
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <Typography sx={{ color: "black", fontSize: 18 }}>Coins: {coins}</Typography>
             <IconButton 
@@ -81,7 +81,7 @@ const Navbar: React.FC = () => {
         </Toolbar>
       </AppBar>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Menu */}
       <Drawer anchor="left" open={mobileOpen} onClose={handleDrawerToggle}>
         <List sx={{ width: 250, paddingTop: 2 }}>
           {menuItems.map((item) => (

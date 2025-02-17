@@ -2,8 +2,8 @@ import { Container, Typography, Button, List, ListItem, ListItemText, Checkbox, 
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useCart } from "../context/CartContext";
-import { useCoin } from "../context/CoinContext";
+import { useCart } from "../hooks/useCart";
+import { useCoin } from "../hooks/useCoin";
 import { CartItemType } from "../types/types";
 import { useCartTotal } from "../hooks/useCartTotal"; 
 
@@ -47,8 +47,7 @@ const Cart: React.FC = () => {
                   gap: 2,
                   py: 2 
                 }} 
-                divider
-              >
+                divider>
                 <Box sx={{ display: "flex", alignItems: "center", width: "100%" }}>
                   <Checkbox
                     checked={selectedItems.includes(item.id)}
@@ -83,6 +82,7 @@ const Cart: React.FC = () => {
                 <Box sx={{ display: "flex", alignItems: "center", justifyContent: "right", width: "100%" }}>
                   <IconButton 
                       onClick={() => updateQuantity(item.id, Math.max(1, (item.quantity ?? 1) - 1))}
+                      disabled={item.quantity === 1}
                       color="primary"
                     >
                       <RemoveCircleIcon fontSize="large" />

@@ -11,7 +11,7 @@ export interface MenuItemType  {
     name: string;
     location: string;
     image: string;
-    menus: { [key: string]: MenuItemType  };
+    menus: { [key: string]: MenuItemType };
   }
   
   export interface CartItemType extends MenuItemType  {

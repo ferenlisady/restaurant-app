@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useState } from "react";
 
 interface CoinContextType {
   coins: number;
@@ -9,20 +9,14 @@ interface CoinContextType {
 export const CoinContext = createContext<CoinContextType | undefined>(undefined);
 
 export const CoinProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [coins, setCoins] = useState(1000); // Default coin balance
+  const [coins, setCoins] = useState(1000); 
 
   const addCoins = (amount: number) => setCoins(prev => prev + amount);
-  const subtractCoins = (amount: number) => setCoins(prev => Math.max(0, prev - amount)); // Ensure coins don't go negative
+  const subtractCoins = (amount: number) => setCoins(prev => Math.max(0, prev - amount)); 
 
   return (
     <CoinContext.Provider value={{ coins, addCoins, subtractCoins }}>
       {children}
     </CoinContext.Provider>
   );
-};
-
-export const useCoin = () => {
-  const context = useContext(CoinContext);
-  if (!context) throw new Error("useCoin must be used within a CoinProvider");
-  return context;
 };

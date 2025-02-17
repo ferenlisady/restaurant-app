@@ -1,4 +1,4 @@
-import { createContext, useReducer, ReactNode, useContext } from "react";
+import { createContext, useReducer, ReactNode, useEffect } from "react";
 import { MenuItemType } from "../types/types";
 
 interface CartItemType extends MenuItemType {
@@ -50,12 +50,18 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
 export const CartContext = createContext<any>(null);
 
 export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [cart, dispatch] = useReducer(cartReducer, []);
+  const initialCart: CartState = JSON.parse(localStorage.getItem("cart") || "[]");
+  const [cart, dispatch] = useReducer(cartReducer, initialCart);
+
+  useEffect(() => {
+    if (cart.length > 0) {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
+  }, [cart]);
 
   const addToCart = (item: MenuItemType) => dispatch({ type: "ADD_TO_CART", payload: item });
   const removeFromCart = (id: number) => dispatch({ type: "REMOVE_FROM_CART", payload: id });
-  const updateQuantity = (id: number, quantity: number) =>
-    dispatch({ type: "UPDATE_QUANTITY", payload: { id, quantity } });
+  const updateQuantity = (id: number, quantity: number) => dispatch({ type: "UPDATE_QUANTITY", payload: { id, quantity } });
   const toggleSelect = (id: number) => dispatch({ type: "TOGGLE_SELECT", payload: id });
   const getTotalPrice = () => cart.reduce((total, item) => (item.selected ? total + item.price * item.quantity : total), 0);
   const checkout = (coins: number) => {
@@ -72,5 +78,3 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     </CartContext.Provider>
   );
 };
-
-export const useCart = () => useContext(CartContext);

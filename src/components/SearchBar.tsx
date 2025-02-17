@@ -8,7 +8,7 @@ interface SearchBarProps {
 const SearchBar: React.FC<SearchBarProps> = ({ search, onSearchChange }) => {
   return (
     <TextField
-      label="Search Menu"
+      label="Search here"
       fullWidth
       value={search}
       onChange={(e) => onSearchChange(e.target.value)}

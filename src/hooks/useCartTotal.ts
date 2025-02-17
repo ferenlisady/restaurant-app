@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useCart } from "../context/CartContext";
+import { useCart } from "../hooks/useCart";
 import { CartItemType } from "../types/types";
 
 export const useCartTotal = () => {
@@ -14,7 +14,7 @@ export const useCartTotal = () => {
 
   const totalPrice = cart
     .filter((item: CartItemType) => selectedItems.includes(item.id))
-    .reduce((sum: number, item: CartItemType) => sum + (item.price ?? 0) * (item.quantity ?? 1), 0);
+    .reduce((sum: number, item: CartItemType) => sum + (item.price) * (item.quantity), 0);
 
   return { selectedItems, toggleSelection, totalPrice };
 };
