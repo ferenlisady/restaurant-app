@@ -1,38 +1,43 @@
-import { AppBar, Toolbar, Typography, Button, IconButton, Drawer, List, ListItem, ListItemText, Box } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-import { Link, useLocation } from "react-router-dom";
-import { useCoin } from "../hooks/useCoin";
 import { useState } from "react";
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { Link, useLocation } from "react-router-dom";
+import { AppBar, Toolbar, Typography, IconButton, Drawer, Box, Button, ListItemButton, ListItemIcon, ListItemText, Divider, Container } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
+import RestaurantIcon from "@mui/icons-material/Restaurant";
+import FastfoodIcon from "@mui/icons-material/Fastfood";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import HomeIcon from "@mui/icons-material/Home";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import { useCoin } from "../hooks/useCoin";
 
 const Navbar: React.FC = () => {
   const { coins, addCoins } = useCoin();
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const location = useLocation(); 
 
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
+  const toggleDrawer = (isOpen: boolean) => () => {
+    setOpen(isOpen);
   };
 
   const menuItems = [
-    { label: "Home", path: "/" },
-    { label: "Restaurant", path: "/restaurants" },
-    { label: "Menu", path: "/menus" },
-    { label: "Cart", path: "/cart" },
+    { label: "Home", path: "/", icon: <HomeIcon /> },
+    { label: "Restaurant", path: "/restaurants", icon: <RestaurantIcon /> },
+    { label: "Menu", path: "/menus", icon: <FastfoodIcon /> },
+    { label: "Cart", path: "/cart", icon: <ShoppingCartIcon /> },
   ];
 
   return (
-    <>
-      <AppBar position="static" sx={{ backgroundColor: "#fafafa" }}>
+    <AppBar position="static" sx={{ backgroundColor: "#fafafa", boxShadow: "none", borderBottom: "1px solid #ddd" }}>
+      <Container maxWidth="lg" disableGutters>
         <Toolbar sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           
-          {/* Hamburger Menu & Title */}
+          {/* Left Section: Logo & Hamburger Menu */}
           <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
             <IconButton
               edge="start"
               aria-label="menu"
               sx={{ display: { xs: "block", md: "none" }, color: "black" }}
-              onClick={handleDrawerToggle}
+              onClick={toggleDrawer(true)}
             >
               <MenuIcon />
             </IconButton>
@@ -41,7 +46,7 @@ const Navbar: React.FC = () => {
             </Typography>
           </Box>
 
-          {/* Menu Items*/}
+          {/* Center Section: Desktop Menu */}
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }, justifyContent: "center", gap: 3 }}>
             {menuItems.map((item) => (
               <Button
@@ -52,9 +57,11 @@ const Navbar: React.FC = () => {
                   fontSize: 18,
                   color: "black",
                   textTransform: "none",
-                  textDecoration: location.pathname === item.path ? "underline" : "none",
-                  "&:hover": { textDecoration: "underline" },
-                  backgroundColor: "transparent"
+                  opacity: 0.8,
+                  textDecoration: "none",
+                  borderBottom: location.pathname === item.path ? "2px solid black" : "none",
+                  fontWeight: location.pathname === item.path ? "bold" : "normal",
+                  "&:hover": { opacity: 1 },
                 }}
               >
                 {item.label}
@@ -62,44 +69,52 @@ const Navbar: React.FC = () => {
             ))}
           </Box>
 
-          {/* Coins & Add Coins Button */}
+          {/* Right Section: Coins & Add Coin Button */}
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <Typography sx={{ color: "black", fontSize: 18 }}>Coins: {coins}</Typography>
             <IconButton 
               onClick={() => addCoins(100)} 
-              sx={{ 
-                color: "#1976d2", 
-                "&:hover": { 
-                  color: "#0d47a1",
-                  backgroundColor: "transparent"
-                } 
-              }}
+              sx={{ color: "#1976d2", "&:hover": { color: "#0d47a1", backgroundColor: "transparent" } }}
             >
               <AddCircleIcon fontSize="large" />
             </IconButton>
           </Box>
         </Toolbar>
-      </AppBar>
+      </Container>
 
       {/* Mobile Menu */}
-      <Drawer anchor="left" open={mobileOpen} onClose={handleDrawerToggle}>
-        <List sx={{ width: 250, paddingTop: 2 }}>
+      <Drawer anchor="left" open={open} onClose={toggleDrawer(false)}>
+        <Box sx={{ p: 2, width: 250 }}>
+          {/* Close Button */}
+          <IconButton sx={{ mb: 2 }} onClick={toggleDrawer(false)}>
+            <CloseIcon />
+          </IconButton>
+
+          <Divider sx={{ mb: 2 }} />
+
+          {/* Menu Items */}
           {menuItems.map((item) => (
-            <ListItem
+            <ListItemButton
               key={item.label}
               component={Link}
               to={item.path}
-              onClick={handleDrawerToggle}
+              onClick={toggleDrawer(false)}
               sx={{
-                textDecoration: location.pathname === item.path ? "underline" : "none", color: "inherit",
+                textDecoration: "none",
+                color: "inherit",
+                fontSize: 18,
+                fontWeight: location.pathname === item.path ? "bold" : "normal",
+                borderBottom: location.pathname === item.path ? "2px solid black" : "none",
+                "&:hover": { backgroundColor: "#f5f5f5" },
               }}
             >
+              <ListItemIcon>{item.icon}</ListItemIcon>
               <ListItemText primary={item.label} />
-            </ListItem>
+            </ListItemButton>
           ))}
-        </List>
+        </Box>
       </Drawer>
-    </>
+    </AppBar>
   );
 };
 
