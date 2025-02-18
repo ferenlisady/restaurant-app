@@ -1,4 +1,4 @@
-import { createContext, useReducer, ReactNode, useEffect } from "react";
+import { createContext, useReducer, ReactNode } from "react";
 import { MenuItemType } from "../types/types";
 
 interface CartItemType extends MenuItemType {
