@@ -16,35 +16,51 @@ type CartAction =
   | { type: "CHECKOUT" };
 
 const cartReducer = (state: CartState, action: CartAction): CartState => {
+  let newState: CartState;
+
   switch (action.type) {
     case "ADD_TO_CART":
-      return state.some(item => item.id === action.payload.id)
+      newState = state.some(item => item.id === action.payload.id)
         ? state.map(item =>
             item.id === action.payload.id
               ? { ...item, quantity: item.quantity + 1 }
               : item
           )
         : [...state, { ...action.payload, quantity: 1, selected: false }];
+      break;
 
     case "REMOVE_FROM_CART":
-      return state.filter(item => item.id !== action.payload);
+      newState = state.filter(item => item.id !== action.payload);
+      break;
 
     case "UPDATE_QUANTITY":
-      return state.map(item =>
+      newState = state.map(item =>
         item.id === action.payload.id ? { ...item, quantity: action.payload.quantity } : item
       );
+      break;
 
     case "TOGGLE_SELECT":
-      return state.map(item =>
+      newState = state.map(item =>
         item.id === action.payload ? { ...item, selected: !item.selected } : item
       );
+      break;
 
     case "CHECKOUT":
-      return state.filter(item => !item.selected);
+      newState = state.filter(item => !item.selected);
+      break;
 
     default:
       return state;
   }
+
+  // Update local storage
+  if (newState.length > 0) {
+    localStorage.setItem("cart", JSON.stringify(newState));
+  } else {
+    localStorage.removeItem("cart");
+  }
+
+  return newState;
 };
 
 export const CartContext = createContext<any>(null);
@@ -52,12 +68,6 @@ export const CartContext = createContext<any>(null);
 export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const initialCart: CartState = JSON.parse(localStorage.getItem("cart") || "[]");
   const [cart, dispatch] = useReducer(cartReducer, initialCart);
-
-  useEffect(() => {
-    if (cart.length > 0) {
-      localStorage.setItem("cart", JSON.stringify(cart));
-    }
-  }, [cart]);
 
   const addToCart = (item: MenuItemType) => dispatch({ type: "ADD_TO_CART", payload: item });
   const removeFromCart = (id: number) => dispatch({ type: "REMOVE_FROM_CART", payload: id });
